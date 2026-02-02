@@ -65,7 +65,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={fontVariables}>
-      <body className="font-jakarta antialiased">
+      <body className="font-jakarta antialiased overflow-x-hidden">
         <ModalProvider>
           <AppPreloader>
             <ToastContainer position='top-right' closeOnClick 

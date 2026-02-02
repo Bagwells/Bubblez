@@ -9,6 +9,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { RiCloseFill } from "react-icons/ri";
 import { NavItems } from "@/utils/Navigation";
 import { useModals } from "@/hooks/useModals";
+import { Contact } from "@/utils/Contact";
 
 
 const NavBar = () => {
@@ -66,13 +67,13 @@ const NavBar = () => {
               `}
       >
         <div className="flex flex-col justify-between gap-6 p-7.5">
-          <div className="space-y-16 flex flex-col items-center">
+          <div className="space-y-10 md:space-y-16 flex flex-col items-center">
             <div className="flex w-full items-center justify-between">
               <div />
               <Logo />
               <RiCloseFill onClick={toggleSlider} size={28} />
             </div>
-            <nav className="flex flex-col gap-8 w-full max-w-62.5 md:max-w-md">
+            <nav className="flex flex-col gap-4 md:gap-8 w-full max-w-62.5 md:max-w-md">
               {NavItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -86,7 +87,7 @@ const NavBar = () => {
                 );
               })}
             </nav>
-            <div className="flex flex-col items-center w-max gap-4">
+            <div className="flex flex-col items-center w-max gap-2">
                 <Btn onClick={()=> {setOpenModal('Book'); toggleSlider()}}
                   size="base" className="h-12 w-full">
                     Book Now
@@ -99,8 +100,16 @@ const NavBar = () => {
                     Get a Free Quote <FaArrowRightLong />
                 </Btn>
             </div>
-            <div className="flex flex-col items-center w-max gap-4">
-              
+            <div className="flex flex-col items-center w-max gap-1.5">
+              <h4 className="font-jakarta text-3xl font-bold font-jakarta">Contact Info</h4>
+              <ul className="flex flex-col items-center w-full">
+                {Contact.map((item) => (
+                  <li key={item.label} className="flex items-center justify-center gap-2">
+                    <p className="text-sm">{item.label}:</p>
+                    <Link href={item.link} target="_blank" className="font-medium text-base">{item.value}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

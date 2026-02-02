@@ -32,17 +32,17 @@ const ContactPage =() => {
     
     const ContactMethods: ContactMethod[] = [
         {
-            href: Contact[0].value,
+            href: Contact[0].link,
             label: Contact[2].value,
             icon: FiPhoneCall
         },
         {
-            href: Contact[1].value,
-            label: "info@bubblezcleaning.co.za",
+            href: Contact[1].link,
+            label: Contact[1].value,
             icon: IoMdMail
         },
         {
-            href: Contact[2].value,
+            href: Contact[2].link,
             label: Contact[2].value,
             icon: TbBrandWhatsapp
         },
