@@ -52,7 +52,6 @@ const ContactPage =() => {
             icon: IoLocationSharp
         }
     ]
-
     const SocialList = [
         { icon: RiTwitterXFill, link: '' },
         { icon: FaInstagram, link: '' },
@@ -101,9 +100,9 @@ const ContactPage =() => {
     }
 
     return (
-        <div className="bg-white w-full min-h-screen overflow-hidden">    
+        <div className="bg-white w-full min-h-screen">    
             <div className="flex py-24 lg:py-42 items-center h-full w-full justify-center ">    
-                <div className="flex flex-col-reverse lg:flex-row p-2 bg-transparent backdrop-blur-sm w-full max-w-7xl rounded-[10px] shadow-md">
+                <div className="flex flex-col-reverse lg:flex-row p-2 bg-transparent backdrop-blur-sm w-full max-w-[1440px] rounded-[10px] shadow-md">
                     <div className="bg-primary rounded-[10px] lg:w-[50%] p-6 lg:p-10 space-y-3">
                         <h3 className=" font-jakarta font-semibold text-2xl text-white ">
                             Contact Information
