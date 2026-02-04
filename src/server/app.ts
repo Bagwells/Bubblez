@@ -10,9 +10,17 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS middleware
+// CORS middleware (only the server sends these response headers; client must not send them)
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  const origin = req.headers.origin;
+  const allowed =
+    origin === "http://localhost:3000" ||
+    origin?.startsWith("https://www.bubblezcleaningservices.co.za") ||
+    origin === "https://bubblezcleaningservices.co.za";
+  res.header(
+    "Access-Control-Allow-Origin",
+    allowed ? origin : "http://localhost:3000"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"

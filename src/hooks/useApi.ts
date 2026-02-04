@@ -1,17 +1,13 @@
 import axios from 'axios';
 
 const useApi = () => {
-  // When running Next + Express (pnpm dev), API is on 3001. Set NEXT_PUBLIC_API_BASE_URL to override.
-  const baseURL =
-    process.env.NEXT_PUBLIC_API_BASE_URL ??
-    (typeof window !== "undefined" ? "http://localhost:3001" : "http://localhost:3001");
+  const baseURL = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_BASE_URL : 'http://localhost:3001';
   const api = axios.create({
-    baseURL: `${baseURL.replace(/\/$/, "")}/api`,
-    headers: {
-      'Content-Type': 'application/json',
-      
-    },
-  });
+  baseURL: `${baseURL?.replace(/\/$/, "") ?? "" }/api`,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
   const post = async (url: string, data: unknown) => {
     try {
