@@ -19,7 +19,7 @@ export const About = () => {
           </p>
           <p className="font-work font-normal text-base lg:text-2xl">
             Bubblez Cleaning Services proudly serves homes and businesses in
-            Johannesburg and Pretoria. We are a trusted local cleaning company
+            Gauteng. We are a trusted local cleaning company
             offering residential, commercial, post-construction, and specialty
             cleaning services. Whether you need a deep home clean or regular
             office maintenance, our team is ready to help.

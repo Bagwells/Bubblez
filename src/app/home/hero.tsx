@@ -13,7 +13,7 @@ const TYPE_SPEED_MS = 50;
 const TAGLINE = "Professional • Reliable • Sparkling Clean";
 const HEADING = "Experience the Joy of a Spotless Space.";
 const DESCRIPTION =
-  "Professional residential and commercial cleaning services tailored to your needs. Proudly serving Johannesburg, Pretoria, and Gauteng.";
+  "Professional residential and commercial cleaning services tailored to your needs. Proudly serving Gauteng.";
 
 function HeadingWithSpotless({ text }: { text: string }) {
   const before = "Experience the Joy of a ";

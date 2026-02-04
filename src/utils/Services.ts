@@ -56,6 +56,14 @@ export const servicesData: ServiceProps[] = [
             {
                 title: "Window Cleaning",
                 price: "100 per window",
+            }, 
+            { 
+                title: "3D carpets cleaning",
+                price: "Starts from R350",
+            },
+            {
+                title: "Persian, Egyptian etc. carpets cleaning",
+                price: "Starts from R500",
             }
 
         ], 
