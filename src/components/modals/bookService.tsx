@@ -98,12 +98,10 @@ export const BookService = () => {
     <div className="font-jakarta space-y-5">
       <div>
         <h4 className="font-semibold text-[28px] text-black">
-          {" "}
-          Book our service{" "}
+          Book our service
         </h4>
         <p className="font-work text-[#8D8D8D] text-base">
-          {" "}
-          Let`s start with your space.{" "}
+          Let`s start with your space.
         </p>
       </div>
       <form method="post" onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
@@ -111,8 +109,7 @@ export const BookService = () => {
           <>
             <div className="space-y-4">
               <p className="font-medium text-sm text-black">
-                {" "}
-                Select the type of service you need and your home size.{" "}
+                Select the type of service you need and your home size.
               </p>
               <RadioButton
                 selected={selected}
