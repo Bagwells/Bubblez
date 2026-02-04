@@ -70,9 +70,10 @@ export default function RootLayout({
           <AppPreloader>
             <ToastContainer position='top-right' closeOnClick 
               newestOnTop autoClose={2000} transition={Flip}
+              theme="colored"
             />
             <NavBar />
-            <main className="w-screen min-h-screen overflow-hidden">
+            <main className="w-screen min-h-screen">
               {children}
             </main>
             <Footer />

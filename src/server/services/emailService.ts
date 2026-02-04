@@ -1,24 +1,18 @@
 import type { BookingProps } from "@/types/booking";
 import type { GetQuoteProps } from "@/types/quote";
 import nodemailer from "nodemailer";
+import { bookingTemplate, quoteTemplate } from "./emailTemplates";
 
 
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_HOST || "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  authMethod: "PLAIN",
-  tls: {
-    ciphers: "SSLv3",
-    rejectUnauthorized: false,
-  },
+export const transporter = nodemailer.createTransport({
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
+    user: process.env.EMAIL_USER as string,
+    pass: process.env.EMAIL_PASSWORD as string,
   },
 });
 
-export const mail = process.env.EMAIL_USER || "";
+export const mail = process.env.EMAIL_USER as string;
 
 export const sendEmail = async (options: BookingProps): Promise<void> => {
   const {
@@ -36,27 +30,15 @@ export const sendEmail = async (options: BookingProps): Promise<void> => {
     message,
   } = options;
 
-  const emailContent = `
-    Client Name: ${firstName} ${lastName}
-    Email: ${email}
-    Phone: ${phone}
-    Property Address: ${property_Address}
-    message: ${message}
-    Booking Details:
-    Service Type: ${service_type}
-    Property Size: ${size.livingrooms} LR, ${size.bedrooms} BR, ${size.bathrooms} BA
-    Extra Services: ${extra_services}
-    Frequency: ${frequency}
-    Date: ${date}
-    Time: ${time}
-  `;
+  const textContent = `Client: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${property_Address}\nMessage: ${message}\n\nBooking: ${service_type} | ${size.livingrooms} LR, ${size.bedrooms} BR, ${size.bathrooms} BA | ${extra_services} | ${frequency} | ${date} ${time}`;
 
   try {
     await transporter.sendMail({
       from: mail,
       to: mail,
       subject: `New Booking Request from ${firstName} ${lastName}`,
-      text: emailContent,
+      text: textContent,
+      html: bookingTemplate(options),
       replyTo: options.email
     });
     console.log(`Email sent successfully to ${mail}`);
@@ -91,24 +73,17 @@ export const sendQuote = async (data: GetQuoteProps): Promise<void> => {
     service_type
   } = data;
 
-  const quoteContent = `
-    Client Name: ${firstName} ${lastName}
-    Email: ${email}
-    Phone: ${phone}
-    Property Address: ${property_address}
-    Service Interested In: ${service_type}
-    Time & Date: ${time} ${date}
-    message: ${message}
-  `
-  
-  try{
+  const quoteText = `Client: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${property_address}\nService: ${service_type}\nDate & time: ${date} ${time}\nMessage: ${message}`;
+
+  try {
     await transporter.sendMail({
       from: mail,
       to: mail,
-      subject: `Quote Resquest from ${firstName} ${lastName}`,
-      text: quoteContent,
+      subject: `Quote Request from ${firstName} ${lastName}`,
+      text: quoteText,
+      html: quoteTemplate(data),
       replyTo: data.email
-    })
+    });
   } catch (error) {
     console.error("Email service connection failed:", error);
     throw error;

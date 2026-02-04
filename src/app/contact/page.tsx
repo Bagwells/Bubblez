@@ -65,6 +65,7 @@ const ContactPage =() => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
       } = useForm<ContactProps>({
         defaultValues: {
@@ -84,6 +85,8 @@ const ContactPage =() => {
             };
             if (response && response.success) {
                 toast.success("Message sent successfully");
+                reset();
+                setSelected(architecture[0]);
                 return;
             } 
         } catch (error: any) {

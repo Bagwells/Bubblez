@@ -23,6 +23,7 @@ export const FreeQuote = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset
   } = useForm<GetQuoteProps>({
     defaultValues: {
       date: "",
@@ -47,6 +48,7 @@ export const FreeQuote = () => {
       if (response?.success) {
         setConfirmationUser(`${data.firstName} ${data.lastName}`.trim() || "there");
         setShowConfirmation(true);
+        reset();
       }
     } catch (error) {
       toast.error(

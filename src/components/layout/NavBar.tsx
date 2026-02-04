@@ -16,7 +16,7 @@ const NavBar = () => {
   const pathname = usePathname();
 
   const [slider, setSlider] = useState<boolean>(false);
-  const toggleSlider = () => {
+  const toggleSlider = ()=> {
     setSlider(!slider);
   };
 
@@ -73,7 +73,7 @@ const NavBar = () => {
               <Logo />
               <RiCloseFill onClick={toggleSlider} size={28} />
             </div>
-            <nav className="flex flex-col gap-4 md:gap-8 w-full max-w-62.5 md:max-w-md">
+            <nav className="flex flex-col gap-6 md:gap-8 w-full max-w-62.5 md:max-w-md">
               {NavItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -101,12 +101,12 @@ const NavBar = () => {
                 </Btn>
             </div>
             <div className="flex flex-col items-center w-max gap-1.5">
-              <h4 className="font-jakarta text-3xl font-bold font-jakarta">Contact Info</h4>
+              <h4 className="font-jakarta text-xl sm:text-3xl font-bold font-jakarta">Contact Info</h4>
               <ul className="flex flex-col items-center w-full">
                 {Contact.map((item) => (
                   <li key={item.label} className="flex items-center justify-center gap-2">
                     <p className="text-sm">{item.label}:</p>
-                    <Link href={item.link} target="_blank" className="font-medium text-base">{item.value}</Link>
+                    <Link href={item.link} target="_blank" className="font-medium text-smmd:text-base">{item.value}</Link>
                   </li>
                 ))}
               </ul>

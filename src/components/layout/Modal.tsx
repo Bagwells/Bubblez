@@ -23,6 +23,7 @@ export const Modal: React.FC<ModalProps> = ({
   className,
 }) => {
   return (
+  <ModalCloseProvider value={close ?? null}>
     <div
       id="modal"
       onClick={close}
@@ -34,16 +35,16 @@ export const Modal: React.FC<ModalProps> = ({
         <div onClick={close} className={`flex w-full items-center justify-end px-6 pt-6`}>
           <MdClose size={20} className={"text-red-700 lg:text-xl"} />
         </div>
-        <ModalCloseProvider value={close ?? null}>
           <div
             id="content"
             onClick={(e) => e.stopPropagation()}
-            className={`bg-white w-fit p-6 overflow-y-auto h-max max-w-7xl max-h-[780px]`}
+            className={`bg-white w-fit p-6 overflow-y-auto h-full max-w-7xl lg:max-h-[780px]`}
           >
             {children}
           </div>
-        </ModalCloseProvider>
+        
       </div>
     </div>
+  </ModalCloseProvider>
   );
 };

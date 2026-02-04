@@ -34,6 +34,7 @@ export const BookService = () => {
     formState: { errors, isSubmitting },
     getValues,
     setValue,
+    reset,
   } = useForm<BookingProps>({
     defaultValues: {
       service_type: "Residential",
@@ -71,6 +72,7 @@ export const BookService = () => {
       if (response?.success) {
         setConfirmationUser(`${data.firstName} ${data.lastName}`.trim() || "there");
         setShowConfirmation(true);
+        reset();
       }
     } catch (error) {
       toast.error(

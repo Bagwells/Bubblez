@@ -1,42 +1,23 @@
 import type { ContactProps } from "@/types/contact";
-import { mail } from "./emailService";
-import nodemailer from "nodemailer";
+import { mail, transporter } from "./emailService";
+import { supportTemplate } from "./emailTemplates";
 
+export const sendSupportEmail = async (data: ContactProps): Promise<void> => {
+  const { firstName, lastName, email, phone, message } = data;
 
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE || "",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+  const supportText = `Client: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
 
-export const sendSupportEmail = async(data: ContactProps):Promise<void> => {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      message
-    } = data;
-  
-    const supportContent = `
-      Client Name: ${firstName} ${lastName}
-      Email: ${email}
-      Phone: ${phone}
-      message: ${message}
-    `
-    
-    try{
-      await transporter.sendMail({
-        from: mail,
-        to: mail,
-        subject: `Support Request from ${firstName} ${lastName}`,
-        text: supportContent,
-        replyTo: data.email
-      })
-    } catch (error) {
-      console.error("Email service connection failed:", error);
-      throw error;
-    }
+  try {
+    await transporter.sendMail({
+      from: mail,
+      to: mail,
+      subject: `Support Request from ${firstName} ${lastName}`,
+      text: supportText,
+      html: supportTemplate(data),
+      replyTo: data.email
+    });
+  } catch (error) {
+    console.error("Email service connection failed:", error);
+    throw error;
   }
+};
