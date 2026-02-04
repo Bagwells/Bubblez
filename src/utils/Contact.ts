@@ -3,8 +3,8 @@ const text = "Hello, I am interested in your services. Can you please provide me
 export const Contact = [
     {
         label: 'Phone',
-        link: 'tel:071 244 9596',
-        value: '071 244 9596'
+        link: 'tel:063 668 3125',
+        value: '063 668 3125'
     },
     {
         label: 'Email',

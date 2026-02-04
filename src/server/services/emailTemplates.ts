@@ -1,7 +1,4 @@
-/**
- * HTML email templates for Bubblez requests.
- * List-based content layout with inline styles for email client support.
- */
+
 
 import type { BookingProps } from "@/types/booking";
 
@@ -18,13 +15,13 @@ import type { ContactProps } from "@/types/contact";
 
 const BRAND = {
   name: "Bubblez",
-  primary: "#0d9488",
-  primaryDark: "#0f766e",
-  bg: "#f0fdfa",
+  primary: "#195DCA",
+  primaryDark: "#1450C2",
+  bg: "#F7FCFF",
   cardBg: "#ffffff",
-  text: "#1f2937",
-  textMuted: "#6b7280",
-  border: "#e5e7eb",
+  text: "#1E1E1E",
+  textMuted: "#8D8D8D",
+  border: "#E9E9E9",
 };
 
 function baseWrapper(content: string, title: string): string {
