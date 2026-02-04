@@ -13,7 +13,7 @@ import { useModals } from "@/hooks/useModals";
 export const Footer = () => {
     const { setOpenModal } = useModals();
     return (
-        <footer className="relative bg-primary w-full py-16 px-4 sm:px-8 md:px-16 xl:px-24 2xl:px-32 font-jakarta">
+        <footer className="relative bg-primary w-full py-16 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 font-jakarta">
             <div className="flex flex-col lg:flex-row gap-20 mb-20">
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col lg:flex-row gap-8">

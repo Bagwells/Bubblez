@@ -24,7 +24,7 @@ const NavBar = () => {
 
   return (
     <div className="fixed top-0 left-0 w-screen h-18 z-60">
-      <div className="flex bg-white border-3 border-[#00D5F521] w-full h-full justify-between lg:gap-8 items-center px-4 sm:px-8 md:px-16 xl:px-24 2xl:px-32">
+      <div className="flex bg-white border-3 border-[#00D5F521] w-full h-full justify-between lg:gap-8 items-center px-4 sm:px-6 md:px-16 xl:px-24 2xl:px-32">
         <Logo />
         <nav className="hidden lg:flex items-center xl:gap-6">
           {NavItems?.map((item) => {

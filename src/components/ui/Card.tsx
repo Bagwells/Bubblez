@@ -105,7 +105,7 @@ export const ServiceCard = ({
                 <Image 
                     src={illustrations[title as keyof typeof illustrations]} 
                     alt={`${title} illustration`} 
-                    className="w-[200px] h-[200px] lg:w-[300px] lg:h-[300px]" 
+                    className="w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] object-contain" 
                     loading="lazy" 
                 />
             </div>
