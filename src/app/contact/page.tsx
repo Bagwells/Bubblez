@@ -34,7 +34,7 @@ const ContactPage =() => {
     const ContactMethods: ContactMethod[] = [
         {
             href: Contact[0].link,
-            label: Contact[2].value,
+            label: Contact[0].value,
             icon: FiPhoneCall
         },
         {
@@ -49,7 +49,7 @@ const ContactPage =() => {
         },
         {
             href: "",
-            label: "Johannesburg, Gauteng and Pretoria",
+            label: "Gauteng.",
             icon: IoLocationSharp
         }
     ]
