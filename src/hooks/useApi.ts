@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 const useApi = () => {
-  // Dev: hit Express on 3001. Production: same-origin /api so Vercel rewrites proxy to backend (avoids CORS + redirect on preflight).
-  const baseURL =
-    process.env.NODE_ENV === "production"
-      ? (process.env.NEXT_PUBLIC_API_BASE_URL ?? "").trim() || ""
-      : "http://localhost:3001";
+  // Dev: hit Express on 3001. Production: always same-origin /api (Vercel rewrites proxy to backend) — never call non-www from www to avoid preflight redirect.
+  const isProduction = process.env.NODE_ENV === "production";
+  const baseURL = isProduction ? "" : "http://localhost:3001";
   const api = axios.create({
     baseURL: baseURL ? `${baseURL.replace(/\/$/, "")}/api` : "/api",
   headers: {
