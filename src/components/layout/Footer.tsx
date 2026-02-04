@@ -17,11 +17,11 @@ export const Footer = () => {
             <div className="flex flex-col lg:flex-row gap-20 mb-20">
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="flex flex-col gap-6 max-w-63">
+                        <div className="flex flex-col gap-6 max-w-68">
                             <Logo />
-                            <p className="font-work text-white text-sm">
+                            <p className="font-work text-white text-base">
                                 A trusted local cleaning company providing professional, residential, commercial, post-construction, and specialty
-                                cleaning services in Pretoria, Johannesburg, and Gauteng. If you`re looking for a reliable cleaning services near you.
+                                cleaning services in Gauteng. If you`re looking for a reliable cleaning services near you.
                                 Bubblez Cleaning Services are here to help you.
                             </p>
                         </div>
@@ -64,7 +64,7 @@ export const Footer = () => {
                             Contact?.map((item) => (
                                 <li key={item.label} className="flex gap-2 font-space text-white text-base">
                                     <p className="text-white text-base">{item.label}: </p>
-                                    <Link href={item.value} target="_blank" className="hover:underline">{item.value}</Link>
+                                    <Link href={item.value} target="_blank" className="hover:underline font-semibold">{item.value}</Link>
                                 </li>
                             ))
                         }
@@ -73,7 +73,9 @@ export const Footer = () => {
                 <div className="flex flex-col gap-6">
                     <h4 className="text-white text-2xl font-semibold">Locations</h4>
                     <p className="text-white text-base">
-                        Pretoria, Johannesburg, and Gauteng.
+                        Main Office: <span className="font-bold">32, Cumberland Avenue, Vandia Grove Bryanston 2001.</span> <br/>
+                        Other Offices: <span className="font-bold">13056 Sebenzisa Drive.</span> <br/>
+                        Other Offices: <span className="font-bold">106 Swemmer Road.</span> <br/>
                     </p>
                     <Image src={Gps} alt="Map" width={400} height={300} 
                         className="rounded-xl pointer-events-none"

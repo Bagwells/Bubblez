@@ -7,7 +7,7 @@ export const Reason =()=> {
         "Vetted & Trained Staff: Every cleaner undergoes a strict background check and rigorous training.",
         "Eco-Friendly Options: We offer pet-safe and eco-friendly cleaning products upon request.",
         "100% Satisfaction: If you aren't happy with the \"Bubblez Effect,\" let us know within 24 hours and we'll re-clean it for free.",
-        "Local Experts: Proudly serving Johannesburg, Pretoria, Centurion, and Midrand.",
+        "Local Experts: Proudly serving Gauteng and its cities."
     ];
 
     return(

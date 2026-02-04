@@ -85,6 +85,12 @@ export const ServiceCard = ({
                         <p className="font-work font-normal text-base text-[#1E1E1E]">
                             Window Cleaning: <span className="font-bold ">R{customPrice?.find(item => item.title === "Window Cleaning")?.price}</span>
                         </p>
+                        <p className="font-work font-normal text-base text-[#1E1E1E]">
+                            3D carpets cleaning: <span className="font-bold ">{customPrice?.find(item => item.title === "3D carpets cleaning")?.price}</span>
+                        </p>
+                        <p className="font-work font-normal text-base text-[#1E1E1E]">
+                            Persian, Egyptian etc. carpets cleaning: <span className="font-bold ">{customPrice?.find(item => item.title === "Persian, Egyptian etc. carpets cleaning")?.price}</span>
+                        </p>
                     </div>
                     )
                 }

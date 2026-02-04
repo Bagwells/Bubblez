@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import Link from "next/link"
 import { FiPhoneCall } from "react-icons/fi"
 import { Contact } from "@/utils/Contact"
@@ -60,6 +61,7 @@ const ContactPage =() => {
 
     const { architecture, selected, setSelected } = useRadio();
     const { post } = useApi();
+    const submittingRef = useRef(false);
 
     const {
         register,
@@ -77,6 +79,8 @@ const ContactPage =() => {
       });
 
     const onSubmit = async (data: ContactProps) => {
+        if (submittingRef.current) return;
+        submittingRef.current = true;
         try {
             const response = (await post("/contact", data)) as {
                 success: boolean;
@@ -87,17 +91,17 @@ const ContactPage =() => {
                 reset();
                 setSelected(architecture[0]);
                 return;
-            } 
-        } catch (error: any) {
+            }
+        } catch (error: unknown) {
+            const err = error as { response?: { data?: { message?: string } } };
             const errorMessage =
-                error && error.response && error.response.data && error.response.data.message
-                    ? error.response.data.message
-                    : "Failed to send message";
+                err?.response?.data?.message ?? "Failed to send message";
             console.error("contact error:", errorMessage);
             toast.error("Failed to send message");
-            return false;
+        } finally {
+            submittingRef.current = false;
         }
-    }
+    };
 
     return (
         <div className="bg-white w-full min-h-screen">    
