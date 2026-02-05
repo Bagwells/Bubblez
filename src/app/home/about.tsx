@@ -9,10 +9,10 @@ export const About = () => {
         <div className="absolute bg-[#5992EE] -translate-y-20 inset-0 w-full h-62.5 rounded-t-[40px]">
         </div>
       <div
-        className="relative bg-primary flex flex-col lg:flex-row justify-between gap-2 w-full items-center py-4 px-4 md:px-6 lg:pr-0  rounded-[40px] shadow-md text-white bg-cover bg-center"
+        className="relative bg-primary flex flex-col lg:flex-row justify-between gap-2 w-full items-center py-4 px-4 lg:px-6 lg:pr-0  rounded-[40px] shadow-md text-white bg-cover bg-center"
         style={{ backgroundImage:"url('/aboutbg.svg')"}}
       >
-        <div className="flex flex-col w-full max-w-[480px] space-y-4 lg:space-y-6 py-6 lg:py-14 xl:py-30">
+        <div className="flex flex-col w-full max-w-[480px] space-y-4 text-center lg:text-left lg:space-y-6 py-6 lg:py-14 xl:py-30">
           <h3 className="font-jakarta font-bold text-2xl lg:text-[48px]">About Us</h3>
           <p className="font-work font-semibold text-lg lg:text-2xl">
             Your Trusted Local Cleaning Experts

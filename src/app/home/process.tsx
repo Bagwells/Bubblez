@@ -32,14 +32,14 @@ export const Process = () => {
         <Btn
           size="base"
           backgroundType="solid"
-          className="h-12 w-45 text-xs sm:text-base lg:text-xs xl:text-base"
+          className="h-12 md:w-45 w-full text-xs sm:text-base lg:text-xs xl:text-base"
           onClick={() => setOpenModal("Book")}
         >
           Book Now
         </Btn>
         <Btn
           size="base"
-          className="h-12 flex items-center gap-2 text-xs sm:text-base lg:text-xs xl:text-base text-nowrap"
+          className="h-12 w-full md:w-fit flex items-center gap-2 text-xs sm:text-base lg:text-xs xl:text-base text-nowrap"
           backgroundType="outline"
           onClick={() => setOpenModal("Quote")}
         >
