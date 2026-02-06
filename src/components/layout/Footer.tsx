@@ -75,7 +75,7 @@ export const Footer = () => {
                     <p className="text-white text-center lg:text-left text-base">
                         Main Office: <span className="font-bold">32, Cumberland Avenue, Vandia Grove Bryanston 2001.</span> <br/>
                         Other Offices: <span className="font-bold">13056 Sebenzisa Drive.</span> <br/>
-                        Other Offices: <span className="font-bold">402 Poole Avenue.</span> <br/>
+                        Other Offices: <span className="font-bold">429 Poole Avenue.</span> <br/>
                         Other Offices: <span className="font-bold">106 Swemmer Road.</span> <br/>
                     </p>
                     <Image src={Gps} alt="Map" width={400} height={300} 
