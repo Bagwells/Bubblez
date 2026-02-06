@@ -2,16 +2,17 @@
 
 import { RadioButton } from "../ui/Radio";
 import { Input } from "../ui/InputField";
+import { TimeInput } from "../ui/TimeInput";
 import { Btn } from "../ui/Button";
 import { useRadio } from "@/hooks/useRadio";
 import { Pills } from "../ui/Pills";
 import { useState } from "react";
 import { TextMessage } from "@/components/ui/TextMessage";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "@/hooks/useApi";
 import { Confirmation } from "./confirmation";
-import type { BookingProps } from "@/types/booking";
+import type { BookingProps } from "@/types/booking";import { FaCheck } from "react-icons/fa";
 
 export type { BookingProps };
 
@@ -20,7 +21,7 @@ export const BookService = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationUser, setConfirmationUser] = useState("");
   const { architecture, selected, setSelected } = useRadio();
-  const [selectSpace, setSelectSpace] = useState<string>("");
+  const [selectSpace, setSelectSpace] = useState<string[]>([]);
   const [selectFrequency, setSelectFrequency] = useState<string>("One time");
   const [livingRoom, setLivingRoom] = useState<number>(1);
   const [bedRooms, setBedRooms] = useState<number>(1);
@@ -30,6 +31,7 @@ export const BookService = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
     getValues,
@@ -39,10 +41,10 @@ export const BookService = () => {
     defaultValues: {
       service_type: "Residential",
       size: { livingrooms: 1, bedrooms: 1, bathrooms: 1 },
-      extra_services: "",
+      extra_services: '',
       frequency: "One time",
       date: "",
-      time: "",
+      time: "08:00 AM",
       firstName: "",
       lastName: "",
       email: "",
@@ -57,7 +59,7 @@ export const BookService = () => {
       const payload: BookingProps = {
         ...data,
         service_type: selected as BookingProps["service_type"],
-        extra_services: selectSpace,
+        extra_services: selectSpace.join(","),
         frequency: selectFrequency,
         size: {
           livingrooms: livingRoom,
@@ -170,17 +172,20 @@ export const BookService = () => {
                 {" "}
                 Select any extra services you might need.{" "}
               </p>
-              <RadioButton
-                selected={selectSpace}
-                setSelected={setSelectSpace}
-                data={[
-                  "Inside Fridge",
-                  "Interior window",
-                  "Exterior",
-                  "Inside Oven",
-                ]}
-                {...register("extra_services")}
-              />
+              <div className="flex items-center flex-wrap gap-8">
+                {
+                  ["Inside Fridge", "Interior window", "Exterior", "Inside Oven"].map((service) => (
+                    <div key={service} 
+                    onClick={() => setSelectSpace(prev => prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service])}
+                    className="flex items-center gap-2 cursor-pointer font-work">
+                      <div className={`w-5 h-5 flex text-center items-center justify-center rounded-full border border-gray-300 ${selectSpace.includes(service) ? "bg-black" : "bg-gray-300"}`}>
+                        {selectSpace.includes(service) && <FaCheck className="text-white" size={10} />}
+                      </div>
+                      <div className="font-normal text-sm data-disabled:opacity-50 cursor-pointer" >{service}</div>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
             <div className="space-y-4">
               <p className="font-medium text-sm text-black">Frequency</p>
@@ -199,12 +204,20 @@ export const BookService = () => {
                 {...register("date", { required: true })}
                 error={errors.date?.message}
               />
-              <Input
-                id="time"
-                label="Preferred Time"
-                type="time"
-                {...register("time", { required: true })}
-                error={errors.time?.message}
+              <Controller
+                name="time"
+                control={control}
+                rules={{ required: true }}
+                defaultValue="08:00 AM"
+                render={({ field }) => (
+                  <TimeInput
+                    label="Preferred Time"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    error={errors.time?.message}
+                  />
+                )}
               />
             </div>
           </>

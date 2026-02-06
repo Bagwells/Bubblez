@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { RadioButton } from "../ui/Radio";
 import { Input } from "../ui/InputField";
+import { TimeInput } from "../ui/TimeInput";
 import { Btn } from "../ui/Button";
 import { useRadio } from "@/hooks/useRadio";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import useApi from "@/hooks/useApi";
 import { toast } from "react-toastify";
 import { Confirmation } from "./confirmation";
@@ -21,13 +22,14 @@ export const FreeQuote = () => {
   const { post } = useApi();
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset
   } = useForm<GetQuoteProps>({
     defaultValues: {
       date: "",
-      time: "",
+      time: "08:00 AM",
       firstName: "",
       lastName: "",
       email: "",
@@ -121,14 +123,20 @@ export const FreeQuote = () => {
             {...register("date", { required: true })}
             error={errors.date?.message}
           />
-          <Input
-            id="time"
-            label="Preferred Time"
-            type="time"
-            pattern="^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$"
-            required
-            {...register("time", { required: true })}
-            error={errors.time?.message}
+          <Controller
+            name="time"
+            control={control}
+            rules={{ required: true }}
+            defaultValue="08:00 AM"
+            render={({ field }) => (
+              <TimeInput
+                label="Preferred Time"
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={errors.time?.message}
+              />
+            )}
           />
         </div>
         <TextMessage

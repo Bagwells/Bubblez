@@ -17,15 +17,15 @@ export const Footer = () => {
             <div className="flex flex-col lg:flex-row gap-20 mb-20">
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="flex flex-col gap-6 max-w-68">
+                        <div className="flex flex-col gap-6 items-center lg:items-start lg:max-w-2xl">
                             <Logo />
-                            <p className="font-work text-white text-base">
+                            <p className="font-work text-white text-center lg:text-left text-base">
                                 A trusted local cleaning company providing professional, residential, commercial, post-construction, and specialty
-                                cleaning services in Gauteng. If you`re looking for a reliable cleaning services near you.
+                                cleaning services in Gauteng. If you are looking for a reliable cleaning services near you.
                                 Bubblez Cleaning Services are here to help you.
                             </p>
                         </div>
-                        <div className="flex flex-col gap-6 font-jakarta">
+                        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 font-jakarta">
                             <h4 className="text-white text-2xl font-semibold text-nowrap">Quick Links</h4>
                             <ul className="">
                                 {
@@ -38,18 +38,18 @@ export const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-4 z-20">
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 z-20">
                         <Btn 
                             onClick={() => setOpenModal("Book")}
                             size="base"
                             backgroundType="outline"
-                            className="h-12 w-45 lg:text-xs xl:text-base">
+                            className="h-12 w-full lg:w-45 lg:text-xs xl:text-base">
                             Book Now
                         </Btn>
                         <Btn
                             onClick={() => setOpenModal("Quote")}
                             size="base"
-                            className="h-12 flex items-center text-nowrap gap-2 lg:text-xs xl:text-base border-white!"
+                            className="h-12 w-full lg:w-fit flex items-center text-nowrap gap-2 lg:text-xs xl:text-base border-white!"
                             backgroundType="solid"
                         >
                             Get a Free Quote <FaArrowRightLong />
@@ -57,7 +57,7 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center lg:items-start gap-6">
                     <h4 className="text-white text-2xl font-semibold text-wrap">Contact</h4>
                     <ul className="">
                         {
@@ -70,9 +70,9 @@ export const Footer = () => {
                         }
                     </ul>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center lg:items-start gap-6">
                     <h4 className="text-white text-2xl font-semibold">Locations</h4>
-                    <p className="text-white text-base">
+                    <p className="text-white text-center lg:text-left text-base">
                         Main Office: <span className="font-bold">32, Cumberland Avenue, Vandia Grove Bryanston 2001.</span> <br/>
                         Other Offices: <span className="font-bold">13056 Sebenzisa Drive.</span> <br/>
                         Other Offices: <span className="font-bold">106 Swemmer Road.</span> <br/>
