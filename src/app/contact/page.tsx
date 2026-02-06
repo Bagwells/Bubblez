@@ -54,9 +54,9 @@ const ContactPage =() => {
         }
     ]
     const SocialList = [
+        { icon: FaInstagram, link: 'https://www.instagram.com/bubblez_cleaning_services?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr'},
+        { icon: PiTiktokLogoLight, link: 'https://www.tiktok.com/@bubblez_cleaningservices?_r=1&_t=ZT-93hQ0EHOyZK'},
         { icon: RiTwitterXFill, link: '' },
-        { icon: FaInstagram, link: '' },
-        { icon: PiTiktokLogoLight, link: ''},
     ];
 
     const { architecture, selected, setSelected } = useRadio();
