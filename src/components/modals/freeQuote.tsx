@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RadioButton } from "../ui/Radio";
 import { Input } from "../ui/InputField";
 import { TimeInput } from "../ui/TimeInput";
@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { Confirmation } from "./confirmation";
 import { TextMessage } from "../ui/TextMessage";
 import type { GetQuoteProps } from "@/types/quote";
+import { PiSpinnerBold } from "react-icons/pi";
+import { QUOTE_SCRIPT_URL, sendToSheet } from "@/utils/googleSheets";
 
 export type { GetQuoteProps as getQuoteProps };
 
@@ -24,6 +26,7 @@ export const FreeQuote = () => {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
     reset
   } = useForm<GetQuoteProps>({
@@ -36,9 +39,12 @@ export const FreeQuote = () => {
       phone: "",
       message: "",
       property_address: "",
-      service_type: "",
+      service_type: selected,
     },
   });
+  useEffect(() => {
+    setValue("service_type", selected);
+  }, [selected, setValue]);
 
   const onSubmit = async (data: GetQuoteProps) => {
     try {
@@ -56,6 +62,18 @@ export const FreeQuote = () => {
       toast.error(
         error instanceof Error ? error.message : "Failed to send quote request"
       );
+    } finally {
+      const sheetData = new URLSearchParams({
+        FullName: data.firstName + " " + data.lastName,
+        Email: data.email,
+        Address: `${data.property_address}`,
+        Phone: String(`${data.phone}`),
+        Date: data.date,
+        Time: String(data.time),
+        Message: data.message ?? "",
+        Service_Type: `${data.service_type}`,
+      });
+      await sendToSheet(QUOTE_SCRIPT_URL, sheetData);
     }
   };
 
@@ -170,10 +188,11 @@ export const FreeQuote = () => {
           <Btn
             type="submit"
             size="base"
-            className="h-12 w-fit lg:text-xs xl:text-base"
+            className="flex items-center justify-center gap-2 h-12 w-fit lg:text-xs xl:text-base"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Sending…" : "Request My Free Quote"}
+            {isSubmitting ? "Sending…" : "Request a Free Quote"}
+            {isSubmitting && <PiSpinnerBold className="animate-spin" />}
           </Btn>
         </div>
       </form>

@@ -21,6 +21,6 @@ export interface BookingProps {
   lastName: string;
   email: string;
   phone: string;
-  property_Address: string;
+  property_address: string;
   message: string;
 }
