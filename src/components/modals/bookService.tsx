@@ -12,7 +12,10 @@ import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "@/hooks/useApi";
 import { Confirmation } from "./confirmation";
-import type { BookingProps } from "@/types/booking";import { FaCheck } from "react-icons/fa";
+import type { BookingProps } from "@/types/booking";
+import { FaCheck } from "react-icons/fa";
+import { PiSpinnerBold } from "react-icons/pi";
+import { BOOKING_SCRIPT_URL, sendToSheet } from "@/utils/googleSheets";
 
 export type { BookingProps };
 
@@ -23,10 +26,11 @@ export const BookService = () => {
   const { architecture, selected, setSelected } = useRadio();
   const [selectSpace, setSelectSpace] = useState<string[]>([]);
   const [selectFrequency, setSelectFrequency] = useState<string>("One time");
-  const [livingRoom, setLivingRoom] = useState<number>(1);
-  const [bedRooms, setBedRooms] = useState<number>(1);
-  const [bathRooms, setBathRooms] = useState<number>(1);
-
+  const [livingRoom, setLivingRoom] = useState<number>(0);
+  const [bedRooms, setBedRooms] = useState<number>(0);
+  const [bathRooms, setBathRooms] = useState<number>(0);
+  const [otherServices, setOtherServices] = useState<boolean>(false);
+  const [otherService, setOtherService] = useState<string>("");
   const { post } = useApi();
 
   const {
@@ -40,7 +44,7 @@ export const BookService = () => {
   } = useForm<BookingProps>({
     defaultValues: {
       service_type: "Residential",
-      size: { livingrooms: 1, bedrooms: 1, bathrooms: 1 },
+      size: { livingrooms: 0, bedrooms: 0, bathrooms: 0},
       extra_services: '',
       frequency: "One time",
       date: "",
@@ -49,10 +53,11 @@ export const BookService = () => {
       lastName: "",
       email: "",
       phone: "",
-      property_Address: "",
+      property_address: "",
       message: "",
     },
   });
+
 
   const onSubmit = async (data: BookingProps) => {
     try {
@@ -72,14 +77,31 @@ export const BookService = () => {
         message: string;
       };
       if (response?.success) {
-        setConfirmationUser(`${data.firstName} ${data.lastName}`.trim() || "there");
+        setConfirmationUser(`${data.firstName} ${data.lastName}`.trim() || "");
         setShowConfirmation(true);
-        reset();
+        reset()
       }
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Failed to send booking request"
       );
+    } finally {
+      const sheetData = new URLSearchParams({
+        Name: data.firstName + " " + data.lastName,
+        Email: data.email,
+        Address: `${data.property_address}`,
+        Phone: String(`${data.phone}`),
+        Frequency: data.frequency ?? "",
+        Extra_services: `${selectSpace.join(",")}`,
+        Date: data.date,
+        Time: data.time,
+        Message: data.message ?? "",
+        Livingrooms: String(data.size.livingrooms),
+        Bedrooms: String(data.size.bedrooms),
+        Bathrooms: String(data.size.bathrooms),
+        Services: `${data.service_type}`,
+      });
+      await sendToSheet(BOOKING_SCRIPT_URL, sheetData);
     }
   };
 
@@ -95,6 +117,8 @@ export const BookService = () => {
   if (showConfirmation) {
     return <Confirmation user={confirmationUser} />;
   }
+
+
 
   return (
     <div className="font-jakarta space-y-5">
@@ -127,7 +151,7 @@ export const BookService = () => {
                   label="Living Rooms"
                   unit={livingRoom}
                   decrement={() => {
-                    const newValue = livingRoom > 1 ? livingRoom - 1 : 1;
+                    const newValue = livingRoom > 0 ? livingRoom - 1 : 0;
                     setLivingRoom(newValue);
                     setValue("size.livingrooms", newValue);
                   }}
@@ -141,7 +165,7 @@ export const BookService = () => {
                   label="Bedrooms"
                   unit={bedRooms}
                   decrement={() => {
-                    const newValue = bedRooms > 1 ? bedRooms - 1 : 1;
+                    const newValue = bedRooms > 0 ? bedRooms - 1 : 0;
                     setBedRooms(newValue);
                     setValue("size.bedrooms", newValue);
                   }}
@@ -155,7 +179,7 @@ export const BookService = () => {
                   label="BathRooms"
                   unit={bathRooms}
                   decrement={() => {
-                    const newValue = bathRooms > 1 ? bathRooms - 1 : 1;
+                    const newValue = bathRooms > 0 ? bathRooms - 1 : 0;
                     setBathRooms(newValue);
                     setValue("size.bathrooms", newValue);
                   }}
@@ -174,7 +198,7 @@ export const BookService = () => {
               </p>
               <div className="flex items-center flex-wrap gap-8">
                 {
-                  ["Inside Fridge", "Interior window", "Exterior", "Inside Oven"].map((service) => (
+                  ["Standard","Intensive","Inside Fridge", "Interior window", "Exterior", "Inside Oven"].map((service) => (
                     <div key={service} 
                     onClick={() => setSelectSpace(prev => prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service])}
                     className="flex items-center gap-2 cursor-pointer font-work">
@@ -185,7 +209,33 @@ export const BookService = () => {
                     </div>
                   ))
                 }
+                <div onClick={() => setOtherServices(true)}
+                  className="flex items-center gap-2 cursor-pointer font-work">
+                    <div className={`w-5 h-5 flex text-center items-center justify-center rounded-full border border-gray-300 ${otherServices ? "bg-black" : "bg-gray-300"}`}>
+                      {otherServices && <FaCheck className="text-white" size={10} />}
+                    </div>
+                    <div className="font-normal text-sm data-disabled:opacity-50 cursor-pointer" >Other services</div>
+                  </div>
               </div>
+              {
+                otherServices && (
+                  <Input
+                    id="other-service"
+                    label="Other services"
+                    placeholder="Specify your service"
+                    type="text"
+                    value={otherService}
+                    onChange={(e) => {
+                    const val = e.target.value;
+                    setOtherService(val);
+                    setSelectSpace((prev) => {
+                      const rest = prev.filter((s) => !s.startsWith("Other:"));
+                      return val.trim() ? [...rest, `Other: ${val.trim()}`] : rest;
+                    });
+                  }}
+                  />
+                )
+              }
             </div>
             <div className="space-y-4">
               <p className="font-medium text-sm text-black">Frequency</p>
@@ -258,11 +308,11 @@ export const BookService = () => {
               />
             </div>
             <TextMessage
-              id="property_Address"
+              id="property_address"
               label="Property Address"
               placeholder="Enter here"
-              {...register("property_Address", { required: true })}
-              error={errors.property_Address?.message}
+              {...register("property_address", { required: true })}
+              error={errors.property_address?.message}
             />
             <TextMessage
               id="message"
@@ -300,10 +350,11 @@ export const BookService = () => {
             <Btn
               type="submit"
               size="base"
-              className="h-12 w-45 lg:text-xs xl:text-base"
+              className="flex items-center justify-center gap-2 h-12 w-45 lg:text-xs xl:text-base"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Booking…" : "Book Now"}
+              {isSubmitting && <PiSpinnerBold className="animate-spin" />}
             </Btn>
           </div>
         )}

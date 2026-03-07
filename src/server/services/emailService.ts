@@ -26,11 +26,11 @@ export const sendEmail = async (options: BookingProps): Promise<void> => {
     lastName,
     email,
     phone,
-    property_Address,
+    property_address,
     message,
   } = options;
 
-  const textContent = `Client: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${property_Address}\nMessage: ${message}\n\nBooking: ${service_type} | ${size.livingrooms} LR, ${size.bedrooms} BR, ${size.bathrooms} BA | ${extra_services} | ${frequency} | ${date} ${time}`;
+  const textContent = `Client: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${property_address}\nMessage: ${message}\n\nBooking: ${service_type} | ${size.livingrooms} LR, ${size.bedrooms} BR, ${size.bathrooms} BA | ${extra_services} | ${frequency} | ${date} ${time}`;
 
   try {
     await transporter.sendMail({

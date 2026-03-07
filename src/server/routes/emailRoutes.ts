@@ -11,6 +11,7 @@ router.post("/book", async (req: Request, res: Response) => {
     await sendEmail(data);
     res.json({ success: true, message: "Email sent successfully" });
   } catch (error: unknown) {
+    console.error("[Book route]", error);
     res.status(500).json({
       error: "Failed to send email",
       message: error instanceof Error ? error.message : "Unknown error",
@@ -24,6 +25,7 @@ router.post("/quote", async (req: Request, res: Response) => {
     await sendQuote(data);
     res.json({ success: true, message: "Quote sent successfully" });
   } catch (error: unknown) {
+    console.error("[Quote route]", error);
     res.status(500).json({
       error: "Failed to send email",
       message: error instanceof Error ? error.message : "Unknown error",

@@ -91,7 +91,7 @@ export function bookingTemplate(options: BookingProps): string {
     lastName,
     email,
     phone,
-    property_Address,
+    property_address,
     message,
     service_type,
     size,
@@ -105,7 +105,7 @@ export function bookingTemplate(options: BookingProps): string {
     listItem("Name", `${firstName} ${lastName}`),
     listItem("Email", email),
     listItem("Phone", phone),
-    listItem("Property address", property_Address),
+    listItem("Property address", property_address),
     listItem("Message", message),
   ];
   const bookingItems = [

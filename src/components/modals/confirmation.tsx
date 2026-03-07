@@ -15,7 +15,7 @@ export const Confirmation = ({ user }: { user: string }) => {
         </h4>
         <p className="font-work text-[#1E1E1E] text-base">
           Thank you, <span className="font-bold text-black">{user}!</span> You
-          will recieve an email from us shortly.
+          will receive an email from us shortly.
         </p>
         <Btn
           onClick={() => closeModal?.()}
